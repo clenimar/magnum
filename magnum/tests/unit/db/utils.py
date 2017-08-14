@@ -233,3 +233,29 @@ def create_test_quotas(**kw):
         del quotas['id']
     dbapi = db_api.get_instance()
     return dbapi.create_quota(quotas)
+
+
+def get_test_federation(**kw):
+    return {
+        'id': kw.get('id', 42),
+        'uuid': kw.get('uuid', 'fake-uuid'),
+        'name': kw.get('name', 'fake-name'),
+        'project_id': kw.get('project_id', 'fake_project'),
+        'master_id': kw.get('master_id', 'fake_master'),
+        'member_ids': kw.get('member_ids', ['fake_member1', 'fake_member2']),
+        'properties': kw.get('properties', {'dns-zone': 'example.com.'})
+    }
+
+
+def create_test_federation(**kw):
+    """Create test federation entry in DB and return federation DB object.
+
+    :param kw: kwargs with overriding values for federation attributes.
+    :return: Test quotas DB object.
+    """
+    federation = get_test_federation(**kw)
+    # Let DB generate ID if it isn't specified explicitly
+    if 'id' not in kw:
+        del federation['id']
+    dbapi = db_api.get_instance()
+    return dbapi.create_federation(federation)
