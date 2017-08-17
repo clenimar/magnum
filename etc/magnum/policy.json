@@ -49,4 +49,11 @@
 
     "magnum-service:get_all": "rule:admin_api",
     "stats:get_all": "rule:admin_or_owner"
+
+    "federation:create": "rule:deny_cluster_user",
+    "federation:delete": "rule:deny_cluster_user",
+    "federation:detail": "rule:deny_cluster_user",
+    "federation:get": "rule:deny_cluster_user",
+    "federation:get_all": "rule:deny_cluster_user",
+    "federation:update": "rule:deny_cluster_user"
 }
