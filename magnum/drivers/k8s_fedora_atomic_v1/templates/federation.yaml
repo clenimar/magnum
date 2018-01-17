@@ -1,0 +1,39 @@
+heat_template_version: 2014-10-16
+
+description: >
+  This is a nested stack that defines SoftwareConfigs that
+  deploy a Kubernetes federation.
+
+parameters:
+
+  name:
+    type: string
+    description: >
+      Name of the federation being created. This is also going
+      to name the context of the Federated Control Plane.
+  
+  dns_zone_name:
+    type: string
+    description: >
+      Name of the domain through which the federation will perform
+      its cross-cluster service discovery using the DNS provider (i.e. CoreDNS)
+      e.g. example.com.
+
+resources:
+
+  ######################################################################
+  #
+  # software configs.  these are components that are combined into
+  # a multipart MIME user-data archive.
+  #
+
+  deploy_federation:
+    type: OS::Heat::SoftwareDeployment
+    properties:
+      group: ungrouped
+      config:
+        str_replace:
+          template: {get_file: ../../common/templates/kubernetes/fragments/deploy-federation.sh}
+          params:
+            "$DNS_ZONE_NAME": {get_param: dns_zone_name}
+            "$FEDERATION_NAME": {get_param: name}

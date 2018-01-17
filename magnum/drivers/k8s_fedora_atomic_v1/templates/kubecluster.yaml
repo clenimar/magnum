@@ -486,7 +486,26 @@ parameters:
     description: >
       The private key will be used to sign generated k8s service account
       tokens.
-
+  
+  federation_enabled:
+    type: boolean
+    description: >
+      Whether or not to have a Kubernetes federation enabled.
+    default: "false"
+  
+  federation_name:
+    type: string
+    description: >
+      Name of the federation being created. This is also going
+      to name the context of the Federated Control Plane.
+  
+  federation_dns_zone_name:
+    type: string
+    description: >
+      Name of the domain through which the federation will perform
+      its cross-cluster service discovery using the DNS provider (i.e. CoreDNS)
+      e.g. example.com.
+  
 resources:
 
   ######################################################################
@@ -709,7 +728,7 @@ resources:
           octavia_enabled: {get_param: octavia_enabled}
           kube_service_account_key: {get_param: kube_service_account_key}
           kube_service_account_private_key: {get_param: kube_service_account_private_key}
-
+          federation_enabled: {get_param: federation_enabled}
 
   ######################################################################
   #
@@ -787,7 +806,19 @@ resources:
           kubelet_options: {get_param: kubelet_options}
           kubeproxy_options: {get_param: kubeproxy_options}
           octavia_enabled: {get_param: octavia_enabled}
+  
+  ######################################################################
+  #
+  # kubernetes federation. This is SoftwareConfig that deploys a kubernetes
+  # federation.
+  #
 
+  kubernetes_federation:
+    type: federation.yaml
+    properties:
+      name: {get_param: federation_name}
+      dns_zone_name: {get_param: federation_dns_zone_name}
+  
 outputs:
 
   api_address:

@@ -381,6 +381,12 @@ parameters:
       The private key will be used to sign generated k8s service account
       tokens.
 
+  federation_enabled:
+    type: boolean
+    description: >
+      Whether or not to have a Kubernetes federation enabled.
+    default: "false"
+      
 resources:
 
   master_wait_handle:
@@ -499,6 +505,7 @@ resources:
           params:
             $OPENSTACK_CA: {get_param: openstack_ca}
           template: {get_file: ../../common/templates/fragments/atomic-install-openstack-ca.sh}
+            "$FEDERATION_ENABLED": {get_param: federation_enabled}
 
   make_cert:
     type: OS::Heat::SoftwareConfig

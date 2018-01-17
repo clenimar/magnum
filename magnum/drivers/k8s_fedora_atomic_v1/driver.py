@@ -27,6 +27,18 @@ class Driver(driver.HeatDriver):
              'coe': 'kubernetes'},
         ]
 
+    def create_federation(self):
+        # TODO(clenimar): implement.
+        pass
+
+    def update_federation(self):
+        # TODO(clenimar): implement.
+        pass
+
+    def delete_federation(self):
+        # TODO(clenimar): implement.
+        pass
+
     def get_template_definition(self):
         return template_def.AtomicK8sTemplateDefinition()
 
