@@ -355,7 +355,26 @@ parameters:
     type: string
     hidden: true
     description: The OpenStack CA certificate to install on the node.
-
+  
+  federation_enabled:
+    type: boolean
+    description: >
+      Whether or not to have a Kubernetes federation enabled.
+    default: "false"
+  
+  federation_name:
+    type: string
+    description: >
+      Name of the federation being created. This is also going
+      to name the context of the Federated Control Plane.
+  
+  federation_dns_zone_name:
+    type: string
+    description: >
+      Name of the domain through which the federation will perform
+      its cross-cluster service discovery using the DNS provider (i.e. CoreDNS)
+      e.g. example.com.
+  
 resources:
 
   ######################################################################
@@ -537,6 +556,7 @@ resources:
           dns_service_ip: {get_param: dns_service_ip}
           dns_cluster_domain: {get_param: dns_cluster_domain}
           openstack_ca: {get_param: openstack_ca}
+          federation_enabled: {get_param: federation_enabled}
 
   ######################################################################
   #
@@ -606,7 +626,19 @@ resources:
           dns_service_ip: {get_param: dns_service_ip}
           dns_cluster_domain: {get_param: dns_cluster_domain}
           openstack_ca: {get_param: openstack_ca}
+  
+  ######################################################################
+  #
+  # kubernetes federation. This is SoftwareConfig that deploys a kubernetes
+  # federation.
+  #
 
+  kubernetes_federation:
+    type: federation.yaml
+    properties:
+      name: {get_param: federation_name}
+      dns_zone_name: {get_param: federation_dns_zone_name}
+  
 outputs:
 
   api_address:

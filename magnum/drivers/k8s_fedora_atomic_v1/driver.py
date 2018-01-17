@@ -12,6 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from magnum.common import clients
 from magnum.drivers.common import k8s_monitor
 from magnum.drivers.common.k8s_scale_manager import K8sScaleManager
 from magnum.drivers.heat import driver
@@ -27,6 +28,18 @@ class Driver(driver.HeatDriver):
              'os': 'fedora-atomic',
              'coe': 'kubernetes'},
         ]
+
+    def create_federation(self, context, federation, hostcluster):
+        self._update_stack(context, clients.OpenStackClients(context),
+                           hostcluster)
+
+    def update_federation(self):
+        # TODO(clenimar): implement.
+        pass
+
+    def delete_federation(self):
+        # TODO(clenimar): implement.
+        pass
 
     def get_template_definition(self):
         return template_def.AtomicK8sTemplateDefinition()

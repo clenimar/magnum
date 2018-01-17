@@ -263,6 +263,12 @@ parameters:
     type: string
     description: The OpenStack CA certificate to install on the node.
 
+  federation_enabled:
+    type: boolean
+    description: >
+      Whether or not to have a Kubernetes federation enabled.
+    default: "false"
+      
 resources:
 
   master_wait_handle:
@@ -349,6 +355,7 @@ resources:
             "$ETCD_LB_VIP": {get_param: etcd_lb_vip}
             "$DNS_SERVICE_IP": {get_param: dns_service_ip}
             "$DNS_CLUSTER_DOMAIN": {get_param: dns_cluster_domain}
+            "$FEDERATION_ENABLED": {get_param: federation_enabled}
 
   install_openstack_ca:
     type: OS::Heat::SoftwareConfig
