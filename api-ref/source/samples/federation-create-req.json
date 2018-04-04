@@ -1,0 +1,7 @@
+{
+    "name":"my-fed-2",
+    "hostcluster_id": "90db0113-4ce8-4fb2-94c8-386959690d83",
+    "properties": {
+        "dns-zone": "fed.example.com."
+    }
+ }

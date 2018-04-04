@@ -32,6 +32,12 @@ clustertemplate_ident:
   required: true
   description: |
     The UUID or name of cluster templates in Magnum.
+federation_ident:
+  type: string
+  in: path
+  required: true
+  description: |
+    The UUID or name of federations in Magnum.
 project_id:
   type: string
   in: path
@@ -289,6 +295,13 @@ host:
   in: body
   required: true
   type: string
+hostcluster_id:
+  description: |
+    The ID of the hostcluster, i.e. the cluster that is hosting the
+    federation control plane.
+  in: body
+  required: true
+  type: string
 http_proxy:
   description: |
     The IP address for a proxy to use when direct http access from the servers
@@ -386,6 +399,12 @@ master_lb_enabled:
   in: body
   required: true
   type: boolean
+member_ids:
+  description: |
+    List of IDs of every member cluster of a federation.
+  in: body
+  required: true
+  type: array
 mservices:
   description: |
     A list of Magnum services.
@@ -454,6 +473,12 @@ pem:
   in: body
   required: true
   type: string
+properties:
+  description: |
+    A ``properties`` object with federation properties, e.g. dns-zone.
+  in: body
+  required: true
+  type: object
 public_type:
   description: |
     Access to a baymodel/cluster template is normally limited to the admin,

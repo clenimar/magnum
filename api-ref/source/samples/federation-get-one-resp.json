@@ -1,0 +1,23 @@
+{
+    "status": "CREATE_IN_PROGRESS",
+    "hostcluster_id": "90db0113-4ce8-4fb2-94c8-386959690d83",
+    "member_ids": [],
+    "uuid": "c36846e0-36f9-4327-8ecf-cbf2187570f9",
+    "links": [
+      {
+        "href": "http://10.11.4.73:9511/v1/federations/c36846e0-36f9-4327-8ecf-cbf2187570f9",
+        "rel": "self"
+      },
+      {
+        "href": "http://10.11.4.73:9511/federations/c36846e0-36f9-4327-8ecf-cbf2187570f9",
+        "rel": "bookmark"
+      }
+    ],
+    "created_at": "2018-04-08T21:48:28+00:00",
+    "updated_at": null,
+    "status_reason": null,
+    "properties": {
+      "dns-zone": "fed.example.com."
+    },
+    "name": "my-fed-2"
+  }
